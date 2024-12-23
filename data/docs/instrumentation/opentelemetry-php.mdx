@@ -118,22 +118,16 @@ env OTEL_PHP_AUTOLOAD_ENABLED=true \
     OTEL_SERVICE_NAME=<SERVICE_NAME> \
     OTEL_TRACES_EXPORTER=otlp \
     OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf \
-    OTEL_EXPORTER_OTLP_ENDPOINT=<SIGNOZ_ENDPOINT> \
+    OTEL_EXPORTER_OTLP_ENDPOINT=ingest.<region>.signoz.cloud:443 \
     OTEL_EXPORTER_OTLP_HEADERS=signoz-access-token=<INGESTION_KEY> \
     OTEL_PROPAGATORS=baggage,tracecontext \
     php -S localhost:8080 app.php
 ```
 
-You can change the env vars value by referencing values from the following lookup table
-
-| Environment Variable                  | Value                                        |
-|-------------------------------|----------------------------------------------|
-| OTEL_SERVICE_NAME              | `<SERVICE_NAME>` replace it with name of your app                         |
-| OTEL_EXPORTER_OTLP_ENDPOINT    | `<SIGNOZ_ENDPOINT>` replace this with SigNoz cloud endpoint                       |
-| OTEL_EXPORTER_OTLP_HEADERS     | signoz-access-token=`<INGESTION_KEY>` replace this with the ingestion key which you must have received in mail        |
-| php -S localhost:8080 app.php             | you can replace this with the run command of your PHP application                        |
-
-
+- Replace `<INGESTION_KEY>` with your SigNoz Cloud [ingestion key](https://signoz.io/docs/ingestion/signoz-cloud/keys/)
+- Set the `<region>` to match your [SigNoz Cloud region](https://signoz.io/docs/ingestion/signoz-cloud/overview/#endpoint)
+- `<SERVICE_NAME>` replace this with the name of your service.
+- `php -S localhost:8080 app.php` - you can replace this with the run command of your PHP application                        |
 
 #### Send traces via OTel Collector binary
 

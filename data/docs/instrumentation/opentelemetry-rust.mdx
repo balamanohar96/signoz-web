@@ -76,7 +76,7 @@ Add this function in main.rs file, `init_tracer` is initializing an OpenTelemetr
 
 ```rust
 fn init_tracer() -> Result<sdktrace::Tracer, TraceError> {
-    let signoz_access_token = std::env::var("SIGNOZ_ACCESS_TOKEN").expect("SIGNOZ_ACCESS_TOKEN not set");
+    let signoz_access_token = std::env::var("SSIGNOZ_INGESTION_KEY").expect("SIGNOZ_INGESTION_KEY not set");
     let mut metadata = MetadataMap::new();
     metadata.insert(
         "signoz-access-token",
@@ -115,16 +115,14 @@ Paste these in `.env` file
 ```bash
 PORT=3000
 APP_NAME=rust-sample
-SIGNOZ_ENDPOINT=https://ingest.[region].signoz.cloud:443/v1/traces
-SIGNOZ_ACCESS_TOKEN=XXXXXXXXXX
+SIGNOZ_ENDPOINT=https://ingest.<region>.signoz.cloud:443/v1/traces
+SIGNOZ_INGESTION_KEY=XXXXXXXXXX
 ```
 
-| Variable              | Description                                               |
-|-----------------------|-----------------------------------------------------|
-| PORT (Optional)      | If it is a web app pass port or else you can ignore this variable  |
-| APP_NAME *      | Name you want to give to your rust application  |
-| SIGNOZ_ENDPOINT  *     | This is ingestion URL which you must have got in mail after registering on SigNoz cloud  |
-| SIGNOZ_ACCESS_TOKEN *  | This is Ingestion Key which you must have got in mail after registering on SigNoz cloud                                     |
+- Replace `SIGNOZ_INGESTION_KEY` with your SigNoz Cloud [ingestion key](https://signoz.io/docs/ingestion/signoz-cloud/keys/)
+- Set the `<region>` to match your [SigNoz Cloud region](https://signoz.io/docs/ingestion/signoz-cloud/overview/#endpoint)
+- PORT (Optional) - If it is a web app pass port or else you can ignore this variable  
+- APP_NAME - Name you want to give to your rust application 
 
 
 **Step 3: Add the OpenTelemetry instrumentation for your Rust app**
